@@ -1,0 +1,66 @@
+# Please store sensitive information in ~/.gitconfig.local or ~/.secrets
+#[user]
+#    name = your name
+#    email = email@local
+#    signingkey = 0xXYZ
+
+[core]
+    editor = vim
+
+[alias]
+    br = branch
+    ci = commit
+    co = checkout
+    df = diff
+    st = status
+
+    aa = add -A
+    cin = commit --no-gpg-sign
+
+    # view abbreviated SHA, description, and history graph of the latest x commits.
+    l = "!f(){ git log --pretty=oneline -n ${1:-60} --graph --abbrev-commit; };f"
+    last = log -1 HEAD
+
+    # squash last x commits into one.
+    squash = "!f(){ git reset --soft HEAD~${1:-1} && git commit --edit -m\"${2:-$(git log --format=%B --reverse HEAD..HEAD@{1})}\"; };f"
+
+    # delete local branches that have already been merged.
+    dmb = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+    # fetch pull request
+    fpr = "!f(){ git fetch origin refs/pull/$1/head:pr/$1; };f"
+
+    # fetch upstream pull request
+    fupr = "!f(){ git fetch upstream refs/pull/$1/head:pr/$1; };f"
+
+    # merge GitHub pull request on top of the current branch or, if a branch name is specified, on top of the specified branch.
+    # source: https://github.com/alrra/dotfiles/blob/75326749cc87e54d1ad242c61bed79de985c777a/src/git/gitconfig#L58
+    mpr = "!f() { \
+        declare currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
+        declare branch=\"${2:-$currentBranch}\"; \
+        if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
+            git fetch origin refs/pull/$1/head:pr/$1 && \
+            git checkout -B $branch && \
+            git rebase $branch pr/$1 && \
+            git checkout -B $branch && \
+            git merge pr/$1 && \
+            git branch -D pr/$1 && \
+            git commit --amend -m \"$(git log -1 --pretty=%B)\n\nClose #$1\"; \
+        fi \
+    }; f"
+
+#[commit]
+#    gpgsign = true
+
+[pull]
+    rebase = true
+
+[color]
+    ui = auto
+    interactive = auto
+
+[gpg]
+    program = gpg2
+
+[include]
+    path = ~/.gitconfig.local

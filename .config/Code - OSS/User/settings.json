@@ -1,0 +1,38 @@
+{
+    // editor
+    "editor.fontFamily": "'DejaVu Sans Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontSize": 15,
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "editor.minimap.enabled": false,
+
+    // rust
+    "rust-client.channel": "stable",
+
+    // workbench theming
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.colorCustomizations":{
+      "activityBar.background": "#282c34"
+    },
+
+    // vscode settings
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "workbench.statusBar.feedback.visible": false,
+
+    // additional settings
+    "debug.allowBreakpointsEverywhere": true,
+
+    // search and watcher excludes
+    "search.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/marktext/dist": true
+    },
+    "files.watcherExclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/marktext/dist": true
+    }
+  }

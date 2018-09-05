@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+function cmd_exists() {
+    command -v "$1" &> /dev/null
+}
+
+if cmd_exists "curl"; then
+    curl -LsS https://github.com/fxha/dotfiles/tarball/master | tar -xzv -C ~/.dotfiles --strip-components=1
+elif cmd_exists "wget"; then
+    wget -O - https://github.com/fxha/dotfiles/tarball/master | tar -xzv -C ~/.dotfiles --strip-components=1
+else
+    echo "[ERROR] Cannot find curl or wget."
+    exit 1
+fi
+
+~/.dotfiles/install.sh

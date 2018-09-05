@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias -- -="cd -"
+
+alias ff="find . -name"
+
+alias ls="ls --color=auto"
+alias la="ls -A --color=auto"
+alias ll="ls -la --color=auto"
+
+alias g="git"
+alias v="vim"
+alias vi="vim"
+
+alias gpgshow="gpg --list-keys --keyid-format long"
+alias gpg2show="gpg2 --list-keys --keyid-format long"
+alias gpgr="gpg-connect-agent reloadagent /bye"
+
+# copy working directory
+alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
+
+alias txl="tmux ls"
+alias txn="tmux new -s"
+alias txa="tmux a -t"
+
+if [[ "$(uname)" == "Linux" ]]; then
+    alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+    alias open="xdg-open"
+elif [[ "$(uname)" == "CYGWIN"* ]]; then
+    alias open="cygstart"
+fi
+
+# lock screen
+if [[ "$(uname)" == "Linux" ]]; then
+    alias afk="gnome-screensaver-command -l"
+elif [[ "$(uname)" == "Darwin" ]]; then
+    alias afk="/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"
+fi
+
+# package manager shortcuts
+if [ -n "$(command -v apt-get)" ]; then
+    alias paci="sudo apt-get install" # install
+    alias pacu="sudo apt-get update && sudo apt-get upgrade" # update
+    alias pacr="sudo apt-get purge" # remove/uninstall
+    alias pacs="sudo apt-get search" # search
+    alias pacinfo="sudo apt-cache show" # info
+    alias pacp="dpkg -i" # install package
+elif [ -n "$(command -v dnf)" ]; then
+    alias paci="sudo dnf install" # install
+    alias pacu="sudo dnf update" # update
+    alias pacr="sudo dnf remove" # remove/uninstall
+    alias pacs="sudo dnf search" # search
+    alias pacinfo="sudo dnf info" # info
+    alias pacp="sudo dnf install" # install package
+#elif [ -n "$(command -v yum)" ]; then
+#    alias paci="sudo yum install" # install
+#    alias pacu="sudo yum update" # update
+#    alias pacr="sudo yum remove" # remove/uninstall
+#    alias pacs="sudo yum search" # search
+#    alias pacinfo="sudo yum info" # info
+#    alias pacp="sudo yum install" # install package
+elif [ -n "$(command -v pacman)" ]; then
+    alias paci="sudo pacman -S" # install
+    alias pacu="sudo pacman -Syu" # update
+    alias pacr="sudo pacman -Rns" # remove/uninstall
+    alias pacs="sudo pacman -Ss" # search
+    alias pacinfo="sudo pacman -Si" # info
+    alias pacp="sudo pacman -U" # install package
+elif [ "$(uname)" == "Darwin" ]; then
+    alias paci="brew install" # install
+    alias pacu="brew update && brew upgrade --all" # update
+    alias pacr="brew uninstall" # remove/uninstall
+    alias pacs="brew search" # search
+    alias pacinfo="brew info" # info
+fi
+
+pacupdate() {
+    pacu
+
+    if [ -n "$(command -v flatpak)" ]; then
+        sudo flatpak update
+    fi
+
+    if [ -n "$(command -v rustup)" ]; then
+        rustup update
+    fi
+}
+
+if [ -f ~/.aliases.local ]; then
+    . ~/.aliases.local
+fi
