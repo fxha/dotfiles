@@ -16,7 +16,8 @@ if [ -n "$(command -v apt-get)" ]; then
 elif [ -n "$(command -v dnf)" ]; then
     sudo dnf install -y \
         make gcc gcc-c++ glibc-devel git-core python nodejs \
-        libgnome-keyring-devel tar libX11-devel > /dev/null
+        libgnome-keyring-devel tar libX11-devel \
+        libXScrnSaver > /dev/null
     sudo npm i -g yarn
 else
     echo "Not supported package manager! Skipping..."
@@ -48,8 +49,9 @@ mv /tmp/dotfiles/VSCode-linux-x64 ~/.bin/vscode
 ln -sf ~/.bin/vscode/code-oss ~/.bin/code-oss
 
 # create desktop file
-link_file "$CODE_PATH/resources/linux/code.png" "$HOME/.local/share/pixmaps/code-oss.png"
-link_file "$DOTFILES_ROOT/.local/share/applications/code_oss.desktop" "$HOME/.local/share/applications/code_oss.desktop"
+mkdir -p ~/.local/share/pixmaps
+cp "$CODE_PATH/resources/linux/code.png" "$HOME/.local/share/pixmaps/code-oss.png"
+cp "$DOTFILES_ROOT/.local/share/applications/code_oss.desktop" "$HOME/.local/share/applications/code-oss.desktop"
 
 rm -rf /tmp/dotfiles/vscode
 echo -e "Done\n"

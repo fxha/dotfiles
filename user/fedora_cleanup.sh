@@ -9,7 +9,8 @@ fi
 
 echo " [-] Cleaning packages..."
 sudo dnf remove -y \
-    telnet
+    telnet \
+    httpd
 #sudo dnf remove -y \
 #    cheese \
 #    evolution \

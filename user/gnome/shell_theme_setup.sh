@@ -113,11 +113,12 @@ if [ "$useCustomTheme" = false ]; then
   # change titlebar color
   sed -i 's/{ $header_bg: rgba(#ffffff, 0.95); }/{ $header_bg: rgba(#e7e8eb, 0.95); }/g' src/_sass/_colors.scss
   sed -i 's/{ $header_bg: #ffffff; }/{ $header_bg: #e7e8eb; }/g' src/_sass/_colors.scss
+  # TODO: close button bg is white
 
   # generate theme
   ./parse-sass.sh &>> "$LOG_FILE"
 
-  sudo ./Install -c dark -t cir &>> "$LOG_FILE" # use 'dark' to install the light theme :/
+  sudo ./Install -c dark -t gnome &>> "$LOG_FILE" # use 'dark' to install the light theme :/
 
   popd > /dev/null # Qogir-theme
 fi
@@ -136,16 +137,16 @@ fi
 
 # change GTK theme
 if [ "$useCustomTheme" = false ]; then
-  dconf write /org/gnome/desktop/interface/gtk-theme "'Qogir-light'"
+  dconf write /org/gnome/desktop/interface/gtk-theme "'Qogir-gnome-light'"
 else
-  dconf write /org/gnome/desktop/interface/gtk-theme "'custom_arc'"
+  dconf write /org/gnome/desktop/interface/gtk-theme "'Custom_arc'"
 fi
 
 # change icon theme
 if [ "$useCustomTheme" = false ]; then
   dconf write /org/gnome/desktop/interface/icon-theme "'Arc-X-P'"
 else
-  dconf write /org/gnome/desktop/interface/icon-theme "'custom_arc_icons'"
+  dconf write /org/gnome/desktop/interface/icon-theme "'Custom_arc_icons'"
 fi
 
 # change shell theme

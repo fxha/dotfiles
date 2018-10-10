@@ -6,6 +6,9 @@ echo " [-] Apply GNOME settings"
 # wm
 dconf write /org/gnome/desktop/wm/preferences/button-layout "'appmenu:minimize,maximize,close'"
 
+# enable workspace on all monitors
+dconf write /org/gnome/shell/overrides/workspaces-only-on-primary false
+
 # peripherals
 dconf write /org/gnome/desktop/peripherals/touchpad/tap-to-click true
 

@@ -89,6 +89,7 @@ declare -a dotfileLinks=(
     "$DOTFILES_ROOT/.env"
     "$DOTFILES_ROOT/.functions"
     "$DOTFILES_ROOT/.gitconfig"
+    "$DOTFILES_ROOT/.ssh_utils"
     "$DOTFILES_ROOT/.tmux.conf"
     "$DOTFILES_ROOT/.vimrc"
 )
@@ -102,6 +103,15 @@ do
     echo " [-] Linking $dst"
     link_file "$src" "$dst"
 done
+
+# copy local ssh config file
+if [ ! -f "$HOME/.ssh_utils.local" ]; then
+    cp "$DOTFILES_ROOT/.ssh_utils.local" "$HOME/.ssh_utils.local"
+
+    if ask_no "Do you want to automatically start the SSH agent?"; then
+        sed -i 's/#DISABLE_AUTO_SSH_AGENT=1/DISABLE_AUTO_SSH_AGENT=1/g' "$HOME/.ssh_utils.local"
+    fi
+fi
 
 # link .profile to .bash_profile on Debain-based distros
 if [ "$(uname)" == "Linux" ] && [ -n "$(command -v apt-get)" ]; then

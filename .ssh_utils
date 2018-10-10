@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+#
+# source: http://mah.everybody.org/docs/ssh
+
+SSH_ENV="$HOME/.ssh/agent_environment"
+
+# start ssh agent
+function agents {
+    echo "Initialising new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
+    chmod 600 "$SSH_ENV"
+    . "$SSH_ENV" > /dev/null
+    #/usr/bin/ssh-add;
+}
+
+# start a new ssh agent session
+function agentss {
+    eval `/usr/bin/ssh-agent`
+}
+
+# kill ssh agent
+function agentk {
+    if [ -f "$SSH_ENV" ]; then
+        #. "$SSH_ENV" > /dev/null
+        /usr/bin/ssh-add -D
+        eval `/usr/bin/ssh-agent -k`
+        rm -f "$SSH_ENV"
+    fi
+}
+
+# kill current ssh agent session
+function agentsk {
+    /usr/bin/ssh-add -D
+    eval `/usr/bin/ssh-agent -k`
+}
+
+# print ssh agent information
+function agenti {
+    [[ -n "$SSH_AGENT_PID" ]] && ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent$ > /dev/null && {
+        echo "Agent pid: $SSH_AGENT_PID"
+        /usr/bin/ssh-add -l
+    }
+}
+
+# unset ssh agent variables to start a new session
+function agentu {
+    unset SSH_AGENT_PID
+    unset SSH_AUTH_SOCK
+}
+
+if [ -f ~/.ssh_utils.local ]; then
+    . ~/.ssh_utils.local
+fi

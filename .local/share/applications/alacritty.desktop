@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 TryExec=alacritty
-Exec=sh -c "env WAYLAND_DISPLAY= alacritty"
+Exec=sh -c "env WINIT_HIDPI_FACTOR=1.0 env WAYLAND_DISPLAY= alacritty"
 Icon=utilities-terminal
 Terminal=false
 Categories=System;TerminalEmulator;
@@ -14,4 +14,4 @@ Actions=New;
 
 [Desktop Action New]
 Name=New Terminal
-Exec="sh -c env WAYLAND_DISPLAY= alacritty"
+Exec="sh -c env WINIT_HIDPI_FACTOR=1.0 env WAYLAND_DISPLAY= alacritty"

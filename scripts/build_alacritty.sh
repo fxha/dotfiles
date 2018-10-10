@@ -11,7 +11,7 @@ echo " [-] Building alacritty"
 
 mkdir -p /tmp/dotfiles
 pushd /tmp/dotfiles > /dev/null
-git clone https://github.com/jwilm/alacritty.git
+git clone https://github.com/jwilm/alacritty.git &>> "$DOTFILES_LOG_FILE"
 
 pushd alacritty > /dev/null
 echo "   This may take a while..."

@@ -25,6 +25,11 @@ if [ -f ~/.secrets ]; then
     . ~/.secrets
 fi
 
+# get ssh aliases and startup script
+if [ -f ~/.ssh_utils ]; then
+    . ~/.ssh_utils
+fi
+
 # load local user configuration
 if [ -f ~/.bash_profile.local ]; then
     . ~/.bash_profile.local
