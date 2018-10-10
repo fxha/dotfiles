@@ -5,6 +5,8 @@ function cmd_exists() {
     command -v "$1" &> /dev/null
 }
 
+mkdir -p ~/.dotfiles
+
 if cmd_exists "curl"; then
     curl -LsS https://github.com/fxha/dotfiles/tarball/master | tar -xzv -C ~/.dotfiles --strip-components=1
 elif cmd_exists "wget"; then
