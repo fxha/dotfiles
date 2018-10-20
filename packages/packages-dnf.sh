@@ -36,8 +36,10 @@ PACKAGES_GUI_FULL_LIST=(
 )
 
 PACKAGES_DEV_LIST=(
+    ccache
     cmake
     clang
+    clang-tools-extra
     doxygen
     gcc
     gcc-c++

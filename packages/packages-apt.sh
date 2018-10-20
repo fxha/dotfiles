@@ -37,6 +37,7 @@ PACKAGES_GUI_FULL_LIST=(
 
 PACKAGES_DEV_LIST=(
     build-essential
+    ccache
     cmake
     clang
     clang-format

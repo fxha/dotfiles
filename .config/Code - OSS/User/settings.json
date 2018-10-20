@@ -27,11 +27,13 @@
     // search and watcher excludes
     "search.exclude": {
       "**/.git": true,
+      "**/build": true,
       "**/node_modules": true,
       "**/marktext/dist": true
     },
     "files.watcherExclude": {
       "**/.git": true,
+      "**/build": true,
       "**/node_modules": true,
       "**/marktext/dist": true
     }
