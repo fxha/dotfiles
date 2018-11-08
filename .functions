@@ -32,8 +32,8 @@ extract() {
 }
 
 # generate a random password
-# usage: gen_pwd OR gen_pwd <length>
-gen_pwd() {
+# usage: genpwd OR genpwd <length>
+genpwd() {
     [[ -z "$1" ]] && pwdLen=32 || pwdLen="$1"
     cat /dev/urandom | tr -dc 'a-zA-Z0-9#+.-_!$%&/()[]{}=' | fold -w "$pwdLen" | head -n 1
 }
