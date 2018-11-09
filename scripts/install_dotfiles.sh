@@ -148,7 +148,7 @@ link_file "$DOTFILES_ROOT/.vim/after/syntax/c.vim" "$HOME/.vim/after/syntax/c.vi
 link_file "$DOTFILES_ROOT/.vim/after/syntax/cpp.vim" "$HOME/.vim/after/syntax/cpp.vim"
 
 # git credentials
-if [[ "$DOTFILES_QUIET" = false && ! -e "$HOME/.gitconfig.local" ]]; then
+if [[ "$DOTFILES_NO_INTERACTION" = false && ! -e "$HOME/.gitconfig.local" ]]; then
     setup_git
 fi
 

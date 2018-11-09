@@ -5,7 +5,7 @@ DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export DOTFILES_ROOT
 export DOTFILES_LOG_FILE="/tmp/dotfiles.log"
 
-DOTFILES_QUIET=false
+DOTFILES_NO_INTERACTION=false
 DOTFILES_ACCEPT_MSCOREFONTS_EULA=false
 DOTFILES_ARG_ROOT=false
 DOTFILES_ARG_HELP=false
@@ -18,8 +18,8 @@ export skip_all=false
 for i in "$@"
 do
 case $i in
-    -q|--quiet)
-    DOTFILES_QUIET=true
+    --no-interaction)
+    DOTFILES_NO_INTERACTION=true
     export overwrite_all=true
     ;;
     --accept-mscorefonts-eula)
@@ -41,7 +41,7 @@ case $i in
 esac
 done
 
-export DOTFILES_QUIET
+export DOTFILES_NO_INTERACTION
 export DOTFILES_ACCEPT_MSCOREFONTS_EULA
 
 function cleanup() {
@@ -79,7 +79,7 @@ Options:
   --root                      Install dotfiles for the root user
                               Please execute with 'sudo' or 'sudo su -'
   --accept-mscorefonts-eula   Accept the Microsoft's TrueType core fonts license
-  --quiet                     Automatically full installation without user interaction
+  --no-interaction            Automatically full installation without user interaction
   --log-path=%file%           Set log directory
 
 See the README for documentation.
@@ -111,7 +111,7 @@ if [[ "$(uname)" == "CYGWIN"* || "$(uname)" == "MINGW"* ]]; then
     echo -e "                           windows"
     echo ""
 
-    if [ "$DOTFILES_QUIET" = false ]; then
+    if [ "$DOTFILES_NO_INTERACTION" = false ]; then
         read -p "Do you want install dotfiles? (y/n) " -n 1 -r
         echo ""
     else
@@ -133,7 +133,7 @@ sudo -v
 # source: https://gist.github.com/cowboy/3118588
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-if [ "$DOTFILES_QUIET" = false ]; then
+if [ "$DOTFILES_NO_INTERACTION" = false ]; then
     read -p "Do you want install dotfiles? (y/n) " _installDotfiles
 else
     _installDotfiles="y"
@@ -146,7 +146,7 @@ fi
 # reload bash profile
 . ~/.bashrc
 
-if [ "$DOTFILES_QUIET" = false ]; then
+if [ "$DOTFILES_NO_INTERACTION" = false ]; then
     read -p "Do you want install additional software and/or system configuration? (y/n) " _installApps
 else
     _installApps="y"
