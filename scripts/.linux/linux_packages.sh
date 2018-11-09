@@ -15,7 +15,7 @@ fi
 echo "Debian-based distro: $isApt"
 
 # accept 'ttf-mscorefonts-installer' license
-if [[ "$DOTFILES_QUIET" = true && "$DOTFILES_ACCEPT_MSCOREFONTS_EULA" = false ]]; then
+if [[ "$DOTFILES_NO_INTERACTION" = true && "$DOTFILES_ACCEPT_MSCOREFONTS_EULA" = false ]]; then
     echo "[ERROR] Cannot install 'ttf-mscorefonts-installer'"
     exit 1
 elif [[ "$DOTFILES_ACCEPT_MSCOREFONTS_EULA" = false && "$isApt" = true && "$installFonts" = true ]]; then
@@ -26,7 +26,7 @@ elif [[ "$DOTFILES_ACCEPT_MSCOREFONTS_EULA" = false && "$isApt" = true && "$inst
 fi
 
 # RPM Fusion
-if [[ "$isApt" = false && "$DOTFILES_QUIET" = true ]]; then
+if [[ "$isApt" = false && "$DOTFILES_NO_INTERACTION" = true ]]; then
     . "$DOTFILES_DIR/.linux/rpmfusion.sh"
 elif [[ "$isApt" = false ]]; then
     echo " [-] Checking for RPM Fusion repositories..."

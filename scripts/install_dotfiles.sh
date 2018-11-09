@@ -106,8 +106,10 @@ done
 if [ ! -f "$HOME/.ssh_utils.local" ]; then
     cp "$DOTFILES_ROOT/.ssh_utils.local" "$HOME/.ssh_utils.local"
 
-    if ask_no "Do you want to automatically start the SSH agent?"; then
-        sed -i 's/#DISABLE_AUTO_SSH_AGENT=1/DISABLE_AUTO_SSH_AGENT=1/g' "$HOME/.ssh_utils.local"
+    if [ "$DOTFILES_NO_INTERACTION" = false ]; then
+        if ask_no "Do you want to automatically start the SSH agent?"; then
+            sed -i 's/#DISABLE_AUTO_SSH_AGENT=1/DISABLE_AUTO_SSH_AGENT=1/g' "$HOME/.ssh_utils.local"
+        fi
     fi
 fi
 
@@ -118,16 +120,21 @@ fi
 
 echo " [-] Linking custom files and directories..."
 
-# custom install directories:
-mkdir -p "$HOME/.config/alacritty"
-link_file "$DOTFILES_ROOT/.config/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
-mkdir -p "$HOME/.config/Code - OSS/User"
-link_file "$DOTFILES_ROOT/.config/Code - OSS/User/settings.json" "$HOME/.config/Code - OSS/User/settings.json"
-mkdir -p "$HOME/.config/keepassxc"
-copy_file "$DOTFILES_ROOT/.config/keepassxc/keepassxc.ini" "$HOME/.config/keepassxc/keepassxc.ini"
+if [ "$(uname)" == "Linux" ]; then
+    # custom install directories:
+    mkdir -p "$HOME/.config/alacritty"
+    link_file "$DOTFILES_ROOT/.config/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+    mkdir -p "$HOME/.config/Code - OSS/User"
+    link_file "$DOTFILES_ROOT/.config/Code - OSS/User/settings.json" "$HOME/.config/Code - OSS/User/settings.json"
+    mkdir -p "$HOME/.config/keepassxc"
+    copy_file "$DOTFILES_ROOT/.config/keepassxc/keepassxc.ini" "$HOME/.config/keepassxc/keepassxc.ini"
 
-# don't copy/download QtCreator configuration and custom GNOME icons/theme because these themes are licensed under GPL.
-# please use private dotfiles and/or 'user/gnome/shell_theme_setup.sh'.
+    # don't copy/download QtCreator configuration and custom GNOME icons/theme because these themes are licensed under GPL.
+    # please use private dotfiles and/or 'user/gnome/shell_theme_setup.sh'.
+elif [ "$(uname)" == "Darwin" ]; then
+    # TODO: macOS
+    echo "Application configuration is currently not supported on macOS!"
+fi
 
 # set ownership to current user and permissions to read and write for current user only.
 mkdir -p "$HOME/.gnupg"
@@ -148,7 +155,7 @@ link_file "$DOTFILES_ROOT/.vim/after/syntax/c.vim" "$HOME/.vim/after/syntax/c.vi
 link_file "$DOTFILES_ROOT/.vim/after/syntax/cpp.vim" "$HOME/.vim/after/syntax/cpp.vim"
 
 # git credentials
-if [[ "$DOTFILES_QUIET" = false && ! -e "$HOME/.gitconfig.local" ]]; then
+if [[ "$DOTFILES_NO_INTERACTION" = false && ! -e "$HOME/.gitconfig.local" ]]; then
     setup_git
 fi
 

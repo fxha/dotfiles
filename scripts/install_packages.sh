@@ -47,7 +47,7 @@ if cmd_exists "gnome-terminal"; then
 fi
 
 # ask user for individual configuration
-if [ "$DOTFILES_QUIET" = false ]; then
+if [ "$DOTFILES_NO_INTERACTION" = false ]; then
     if ask_yes "Do you want to customize configuration?"; then
         if ask_no "Do you want to install base applications?"; then
             installBaseList=false
