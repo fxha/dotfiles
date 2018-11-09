@@ -2,6 +2,8 @@
 
 Personal dotfiles and configurations for Fedora and Debian-based desktop distros.
 
+![dotfiles](.github/dotfiles.png)
+
 ## Structure
 
 ```
