@@ -5,6 +5,11 @@ services:
       context: ./
       dockerfile: ./docker/fedora/Dockerfile
 
+  fedora_dotfiles:
+    build:
+      context: ./
+      dockerfile: ./docker/fedora_dotfiles/Dockerfile
+
   ubuntu:
     build:
       context: ./

@@ -76,6 +76,6 @@ PACKAGES_MISC=(
 PACKAGES_LATEX=(
     pandoc
     pandoc-citeproc
-    texlive-full
+    # texlive-full # TODO: fix "mtxrun --generate failed."
 # TODO: complete the package list
 )

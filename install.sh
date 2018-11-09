@@ -5,6 +5,7 @@ DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export DOTFILES_ROOT
 export DOTFILES_LOG_FILE="/tmp/dotfiles.log"
 
+DOTFILES_ONLY_DOTFILES=false
 DOTFILES_NO_INTERACTION=false
 DOTFILES_ACCEPT_MSCOREFONTS_EULA=false
 DOTFILES_ARG_ROOT=false
@@ -18,6 +19,9 @@ export skip_all=false
 for i in "$@"
 do
 case $i in
+    --dotfiles)
+    DOTFILES_ONLY_DOTFILES=true
+    ;;
     --no-interaction)
     DOTFILES_NO_INTERACTION=true
     export overwrite_all=true
@@ -78,8 +82,9 @@ Options:
   -h, --help                  Print this help message
   --root                      Install dotfiles for the root user
                               Please execute with 'sudo' or 'sudo su -'
-  --accept-mscorefonts-eula   Accept the Microsoft's TrueType core fonts license
+  --dotfiles                  Only install dotfiles
   --no-interaction            Automatically full installation without user interaction
+  --accept-mscorefonts-eula   Accept the Microsoft's TrueType core fonts license
   --log-path=%file%           Set log directory
 
 See the README for documentation.
@@ -148,7 +153,7 @@ fi
 
 if [ "$DOTFILES_NO_INTERACTION" = false ]; then
     read -p "Do you want install additional software and/or system configuration? (y/n) " _installApps
-else
+elif [ "$DOTFILES_ONLY_DOTFILES" = false ]; then
     _installApps="y"
 fi
 

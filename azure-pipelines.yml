@@ -20,7 +20,6 @@ jobs:
       vmImage: 'macOS-10.13'
 
     steps:
-    - script: echo "$(id -un)    ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
-      displayName: 'Adding user to sudoers without password'
-    - script: ./install.sh --accept-mscorefonts-eula --no-interaction --log-path=/dev/stdout
+    # TODO: fix sudo: no tty present and no askpass program specified
+    - script: sudo ./install.sh --root --accept-mscorefonts-eula --no-interaction --log-path=/dev/stdout
       displayName: 'Testing dotfiles...'
