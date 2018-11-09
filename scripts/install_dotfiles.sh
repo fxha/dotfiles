@@ -94,8 +94,6 @@ declare -a dotfileLinks=(
     "$DOTFILES_ROOT/.vimrc"
 )
 
-overwrite_all=false backup_all=false skip_all=false
-
 # link root dotfiles
 for src in "${dotfileLinks[@]}"
 do
@@ -150,7 +148,7 @@ link_file "$DOTFILES_ROOT/.vim/after/syntax/c.vim" "$HOME/.vim/after/syntax/c.vi
 link_file "$DOTFILES_ROOT/.vim/after/syntax/cpp.vim" "$HOME/.vim/after/syntax/cpp.vim"
 
 # git credentials
-if [ ! -e "$HOME/.gitconfig.local" ]; then
+if [[ "$DOTFILES_QUIET" = false && ! -e "$HOME/.gitconfig.local" ]]; then
     setup_git
 fi
 

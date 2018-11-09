@@ -72,3 +72,10 @@ PACKAGES_MISC=(
     p7zip-full
     powertop
 )
+
+PACKAGES_LATEX=(
+    pandoc
+    pandoc-citeproc
+    texlive-full
+# TODO: complete the package list
+)

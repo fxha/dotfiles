@@ -1,0 +1,24 @@
+jobs:
+  - job: Fedora-28
+    pool:
+      vmImage: 'ubuntu-16.04'
+
+    steps:
+    - script: docker-compose up -d fedora
+      displayName: 'Testing dotfiles...'
+
+  - job: Ubuntu-18.04
+    pool:
+      vmImage: 'ubuntu-16.04'
+
+    steps:
+    - script: docker-compose up -d ubuntu
+      displayName: 'Testing dotfiles...'
+
+  - job: macOS
+    pool:
+      vmImage: 'macOS-10.13'
+
+    steps:
+    - script: ./install.sh --accept-mscorefonts-eula --quiet --log-path=/dev/stdout
+      displayName: 'Testing dotfiles...'

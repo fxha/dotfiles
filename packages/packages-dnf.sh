@@ -70,3 +70,21 @@ PACKAGES_MISC=(
     p7zip
     powertop
 )
+
+PACKAGES_LATEX=(
+    pandoc
+    pandoc-citeproc
+    texlive
+    texlive-xecjk
+    texlive-filehook
+    texlive-unicode-math
+    texlive-ucharcat
+    texlive-pagecolor
+    texlive-babel-german
+    texlive-ly1 texlive-mweights
+    texlive-sourcecodepro
+    texlive-sourcesanspro
+    texlive-mdframed
+    texlive-needspace
+    texlive-titling
+)

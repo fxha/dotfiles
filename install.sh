@@ -5,6 +5,45 @@ DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export DOTFILES_ROOT
 export DOTFILES_LOG_FILE="/tmp/dotfiles.log"
 
+DOTFILES_QUIET=false
+DOTFILES_ACCEPT_MSCOREFONTS_EULA=false
+DOTFILES_ARG_ROOT=false
+DOTFILES_ARG_HELP=false
+
+export overwrite_all=false
+export backup_all=false
+export skip_all=false
+
+# source: https://stackoverflow.com/a/14203146
+for i in "$@"
+do
+case $i in
+    -q|--quiet)
+    DOTFILES_QUIET=true
+    export overwrite_all=true
+    ;;
+    --accept-mscorefonts-eula)
+    DOTFILES_ACCEPT_MSCOREFONTS_EULA=true
+    ;;
+    --root)
+    DOTFILES_ARG_ROOT=true
+    ;;
+    -h|--help)
+    DOTFILES_ARG_HELP=true
+    ;;
+    --log-path=*)
+    export DOTFILES_LOG_FILE="${i#*=}"
+    shift # skip =* value
+    ;;
+    *)
+    # unknown options
+    ;;
+esac
+done
+
+export DOTFILES_QUIET
+export DOTFILES_ACCEPT_MSCOREFONTS_EULA
+
 function cleanup() {
     if [ -d "/tmp/dotfiles" ]; then
         rm -rf /tmp/dotfiles
@@ -30,13 +69,18 @@ echo "                / _  / _ \/ __/ _/ / / -_|_-<"
 echo "                \_,_/\___/\__/_//_/_/\__/___/"
 echo ""
 
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+if [[ "$DOTFILES_ARG_HELP" = true ]]; then
     cat <<EOF
 
-Usage: $(basename "$0")
-        -h, --help    prints this help message
-        --root        installs dotfiles for the root user
-                      please execute with 'sudo' or 'sudo su -'
+Usage: $(basename "$0") [options]
+
+Options:
+  -h, --help                  Print this help message
+  --root                      Install dotfiles for the root user
+                              Please execute with 'sudo' or 'sudo su -'
+  --accept-mscorefonts-eula   Accept the Microsoft's TrueType core fonts license
+  --quiet                     Automatically full installation without user interaction
+  --log-path=%file%           Set log directory
 
 See the README for documentation.
 EOF
@@ -49,14 +93,14 @@ trap 'echo -e "\nAborting..."; cleanup; trap - EXIT; exit 1' INT
 echo -e "dotfile setup started: $(date +'%Y-%m-%d %H:%M:%S')\n" > "$DOTFILES_LOG_FILE"
 
 if [[ "$(id -u)" = 0 ]]; then
-    if [[ -n "$SUDO_USER" && "$1" != "--root" ]]; then
+    if [[ -n "$SUDO_USER" && "$DOTFILES_ARG_ROOT" = false ]]; then
         echo "The script need to be run without root permissions." >&2
         trap - EXIT
         exit 1
     else
         echo -e "\x1b[33mCurrent installation path is '$HOME'. Please run the setup without root permissions to install to local user if needed.\x1b[0m"
     fi
-elif [[ "$(id -u)" != 0 && "$1" == "--root" ]]; then
+elif [[ "$(id -u)" != 0 && "$DOTFILES_ARG_ROOT" = true ]]; then
     echo "The script need to be run with root permissions." >&2
     trap - EXIT
     exit 1
@@ -67,8 +111,13 @@ if [[ "$(uname)" == "CYGWIN"* || "$(uname)" == "MINGW"* ]]; then
     echo -e "                           windows"
     echo ""
 
-    read -p "Do you want install dotfiles? (y/n) " -n 1 -r
-    echo ""
+    if [ "$DOTFILES_QUIET" = false ]; then
+        read -p "Do you want install dotfiles? (y/n) " -n 1 -r
+        echo ""
+    else
+        REPLY="y"
+    fi
+
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         "$DOTFILES_ROOT/scripts/install_dotfiles_windows.sh"
     fi
@@ -84,7 +133,12 @@ sudo -v
 # source: https://gist.github.com/cowboy/3118588
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-read -p "Do you want install dotfiles? (y/n) " _installDotfiles
+if [ "$DOTFILES_QUIET" = false ]; then
+    read -p "Do you want install dotfiles? (y/n) " _installDotfiles
+else
+    _installDotfiles="y"
+fi
+
 if [[ "$_installDotfiles" = "y" ]]; then
     "$DOTFILES_ROOT/scripts/install_dotfiles.sh"
 fi
@@ -92,7 +146,12 @@ fi
 # reload bash profile
 . ~/.bashrc
 
-read -p "Do you want install additional software and/or system configuration? (y/n) " _installApps
+if [ "$DOTFILES_QUIET" = false ]; then
+    read -p "Do you want install additional software and/or system configuration? (y/n) " _installApps
+else
+    _installApps="y"
+fi
+
 if [[ "$_installApps" = "y" ]]; then
     "$DOTFILES_ROOT/scripts/install_packages.sh"
 fi

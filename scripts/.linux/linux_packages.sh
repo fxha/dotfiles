@@ -15,7 +15,10 @@ fi
 echo "Debian-based distro: $isApt"
 
 # accept 'ttf-mscorefonts-installer' license
-if [[ "$isApt" = true && "$installFonts" = true ]]; then
+if [[ "$DOTFILES_QUIET" = true && "$DOTFILES_ACCEPT_MSCOREFONTS_EULA" = false ]]; then
+    echo "[ERROR] Cannot install 'ttf-mscorefonts-installer'"
+    exit 1
+elif [[ "$DOTFILES_ACCEPT_MSCOREFONTS_EULA" = false && "$isApt" = true && "$installFonts" = true ]]; then
     if ask_no "I have read the END-USER LICENSE AGREEMENT FOR MICROSOFT SOFTWARE (http://corefonts.sourceforge.net/eula.htm) and accept them to install Microsoft's TrueType core fonts. (y)"; then
         echo "[ERROR] Cannot install 'ttf-mscorefonts-installer'"
         exit 1
@@ -23,7 +26,9 @@ if [[ "$isApt" = true && "$installFonts" = true ]]; then
 fi
 
 # RPM Fusion
-if [ "$isApt" = false ]; then
+if [[ "$isApt" = false && "$DOTFILES_QUIET" = true ]]; then
+    . "$DOTFILES_DIR/.linux/rpmfusion.sh"
+elif [[ "$isApt" = false ]]; then
     echo " [-] Checking for RPM Fusion repositories..."
 
     rpmfusion_available=true
@@ -33,7 +38,7 @@ if [ "$isApt" = false ]; then
     if ! rpm -qa rpmfusion-nonfree-release | grep -q rpmfusion; then
         rpmfusion_available=false
     fi
-    if [ "$rpmfusion_available" = false ]; then
+    if [[ "$rpmfusion_available" = false ]]; then
         if ask_yes "Do you want install RPM Fusion repositories?"; then
             . "$DOTFILES_DIR/.linux/rpmfusion.sh"
         else
@@ -69,6 +74,9 @@ if [ "$installDevList" = true ]; then
 fi
 if [ "$installGnomeList" = true ]; then
     packageList=("${packageList[@]}" "${PACKAGES_GNOME_LIST[@]}")
+fi
+if [ "$installLatex" = true ]; then
+    packageList=("${packageList[@]}" "${PACKAGES_LATEX[@]}")
 fi
 if [ "$installMisc" = true ]; then
     packageList=("${packageList[@]}" "${PACKAGES_MISC[@]}")
@@ -112,6 +120,14 @@ fi
 # install rust and cargo
 if [ "$installDevList" = true ]; then
     . "$DOTFILES_DIR/.linux/rust.sh"
+fi
+
+# install LaTeX template
+if [ "$installLatex" = true ]; then
+    mkdir -p "$HOME/.pandoc/templates"
+    wget -O "$HOME/.pandoc/templates/eisvogel.latex" \
+        https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex \
+        &>> "$DOTFILES_LOG_FILE" || true
 fi
 
 # build applications from source

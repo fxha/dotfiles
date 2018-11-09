@@ -29,6 +29,7 @@ fc-cache -f -v "$HOME/.local/share/fonts/source-code-pro" > /dev/null
 else
     sudo dnf install -y \
         adobe-source-code-pro-fonts \
+        adobe-source-sans-pro-fonts \
         dejavu-sans-fonts \
         google-droid-sans-fonts \
         google-droid-sans-mono-fonts \
