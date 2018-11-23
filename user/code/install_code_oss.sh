@@ -6,6 +6,8 @@ set -e
 #   dnf install make gcc gcc-c++ glibc-devel git-core libgnome-keyring-devel tar libX11-devel python nodejs (createrepo rpmdevtools fakeroot)
 #   npm i -g yarn
 
+DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../.."
+
 echo "Checking dependencies..."
 
 if [ -n "$(command -v apt-get)" ]; then
@@ -44,16 +46,22 @@ yarn
 # build code binaries
 yarn run gulp vscode-linux-x64-min
 
-mkdir -p ~/.bin
-mv /tmp/dotfiles/VSCode-linux-x64 ~/.bin/vscode
-ln -sf ~/.bin/vscode/code-oss ~/.bin/code-oss
+mkdir -p "$HOME/.bin"
+rm -rf "$HOME/.bin/vscode_tmp/"
+
+mv "$CODE_PATH/../VSCode-linux-x64" "$HOME/.bin/vscode_tmp"
+rm -rf "$HOME/.bin/vscode/"
+mv "$HOME/.bin/vscode_tmp" "$HOME/.bin/vscode"
+ln -sf "$HOME/.bin/vscode/code-oss" "$HOME/.bin/code-oss"
 
 # create desktop file
-mkdir -p ~/.local/share/pixmaps
+mkdir -p "$HOME/.local/share/pixmaps"
+mkdir -p "$HOME/.local/share/applications"
 cp "$CODE_PATH/resources/linux/code.png" "$HOME/.local/share/pixmaps/code-oss.png"
 cp "$DOTFILES_ROOT/.local/share/applications/code_oss.desktop" "$HOME/.local/share/applications/code-oss.desktop"
 
-rm -rf /tmp/dotfiles/vscode
+# cleanup
+rm -rf "$CODE_PATH"
 echo -e "Done\n"
 
 popd > /dev/null # vscode
