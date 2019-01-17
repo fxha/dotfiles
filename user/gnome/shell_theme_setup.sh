@@ -4,7 +4,7 @@ set -e
 #######################################
 ## Shell: Flat-Plat-Blue-compact
 ## Icons: custom Arc-X-Icons, Arc-X-Icons and Paper
-## Theme: custom X-Arc-White, Qogir Gtk Theme
+## Theme: Qogir GTK Theme
 #######################################
 
 export LOG_FILE="/tmp/dotfiles-shell.log"
@@ -59,14 +59,9 @@ fi
 
 # try to find our custom themes, otherwise use fallback icons and theme.
 useCustomIcons=false
-useCustomTheme=false
 
 if [[ -d "~/.icons/custom_arc_icons" && -d "~/.icons/Paper" ]]; then
   useCustomIcons=true
-fi
-
-if [[ -d "~/.themes/custom_arc" ]]; then
-  useCustomTheme=true
 fi
 
 mkdir -p /tmp/dotfiles-shell/
@@ -103,28 +98,24 @@ if [ "$useCustomIcons" = false ]; then
 fi
 
 # download theme if needed
-if [ "$useCustomTheme" = false ]; then
-  echo " [-] Downloading Qogir theme..."
-  git clone https://github.com/vinceliuice/Qogir-theme &>> "$LOG_FILE"
-  pushd Qogir-theme > /dev/null
+echo " [-] Downloading Qogir theme..."
+git clone https://github.com/vinceliuice/Qogir-theme &>> "$LOG_FILE"
+pushd Qogir-theme > /dev/null
 
-  echo " [-] Customizing and installing Qogir theme..."
+echo " [-] Customizing and installing Qogir theme..."
 
-  # change titlebar color
-  sed -i 's/{ $header_bg: rgba(#ffffff, 0.95); }/{ $header_bg: rgba(#e7e8eb, 0.95); }/g' src/_sass/_colors.scss
-  sed -i 's/{ $header_bg: #ffffff; }/{ $header_bg: #e7e8eb; }/g' src/_sass/_colors.scss
-  # TODO: close button bg is white
+# change titlebar color
+sed -i 's/{ $header_bg: rgba(#ffffff, 0.95); }/{ $header_bg: rgba(#e7e8eb, 0.95); }/g' src/_sass/_colors.scss
+sed -i 's/{ $header_bg: #ffffff; }/{ $header_bg: #e7e8eb; }/g' src/_sass/_colors.scss
+# TODO: close button bg is white in some applications
 
-  # generate theme
-  ./parse-sass.sh &>> "$LOG_FILE"
+# generate theme
+./parse-sass.sh &>> "$LOG_FILE"
 
-  sudo ./Install -c dark -t gnome &>> "$LOG_FILE" # use 'dark' to install the light theme :/
-
-  popd > /dev/null # Qogir-theme
-fi
+./Install -c light -m gnome -s &>> "$LOG_FILE"
+popd > /dev/null # Qogir-theme
 
 popd > /dev/null # /tmp/dotfiles-shell
-
 
 # enable user extensions and themes
 dconf write /org/gnome/shell/disable-user-extensions false
@@ -136,14 +127,10 @@ elif [[ $enabledExtensions != *"'user-theme@gnome-shell-extensions.gcampax.githu
 fi
 
 # change GTK theme
-if [ "$useCustomTheme" = false ]; then
-  dconf write /org/gnome/desktop/interface/gtk-theme "'Qogir-gnome-light'"
-else
-  dconf write /org/gnome/desktop/interface/gtk-theme "'Custom_arc'"
-fi
+dconf write /org/gnome/desktop/interface/gtk-theme "'Qogir-gnome-light'"
 
 # change icon theme
-if [ "$useCustomTheme" = false ]; then
+if [ "$useCustomIcons" = false ]; then
   dconf write /org/gnome/desktop/interface/icon-theme "'Arc-X-P'"
 else
   dconf write /org/gnome/desktop/interface/icon-theme "'Custom_arc_icons'"
