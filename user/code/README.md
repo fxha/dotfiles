@@ -7,13 +7,13 @@ Execute `user/code/install_code_oss.sh` or use this guide.
 **Debian-based:**
 
 ```sh
-$ sudo dnf install -y make gcc gcc-c++ glibc-devel git-core libgnome-keyring-devel tar libX11-devel python createrepo rpmdevtools fakeroot nodejs
+$ sudo dnf install -y make gcc gcc-c++ glibc-devel git-core libgnome-keyring-devel tar libX11-devel libsecret-1-dev python createrepo rpmdevtools fakeroot nodejs
 ```
 
 **RHEL:**
 
 ```sh
-$ sudo dnf install -y make gcc gcc-c++ glibc-devel git-core libgnome-keyring-devel tar libX11-devel python createrepo rpmdevtools fakeroot nodejs
+$ sudo dnf install -y make gcc gcc-c++ glibc-devel git-core libgnome-keyring-devel tar libX11-devel libsecret-devel python createrepo rpmdevtools fakeroot nodejs
 ```
 
 Install yarn and download repository:
