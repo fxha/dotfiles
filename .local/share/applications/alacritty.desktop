@@ -14,4 +14,7 @@ Actions=New;
 
 [Desktop Action New]
 Name=New Terminal
-Exec="sh -c env WINIT_HIDPI_FACTOR=1.0 env WAYLAND_DISPLAY= alacritty"
+; LC_CTYPE=en_US.UTF-8: Fixes "xkbcommon: ERROR: Couldn't read Compose file /usr/share/X11/locale/"
+; WINIT_HIDPI_FACTOR=1.0: Scaling issues in/since v0.2.9
+; WAYLAND_DISPLAY=: Wayland compatibility
+Exec="sh -c env LC_CTYPE=en_US.UTF-8 env WINIT_HIDPI_FACTOR=1.0 env WAYLAND_DISPLAY= alacritty"
