@@ -59,8 +59,7 @@ fi
 
 # try to find our custom themes, otherwise use fallback icons and theme.
 useCustomIcons=false
-
-if [[ -d "~/.icons/custom_arc_icons" && -d "~/.icons/Paper" ]]; then
+if [[ -d "~/.icons/Custom-icons" ]]; then
   useCustomIcons=true
 fi
 
@@ -84,22 +83,27 @@ sudo ./install.sh -c standard -s compact &>> "$LOG_FILE"
 
 popd > /dev/null # Flat-Plat-Blue
 
-# download icons if needed
-if [ "$useCustomIcons" = false ]; then
-  echo " [-] Downloading Arc-X-Icons..."
-  git clone https://gitlab.com/LinxGem33/Arc-X-Icons &>> "$LOG_FILE"
-  pushd Arc-X-Icons > /dev/null
+# download icon themes
+echo " [-] Downloading Papirus icon theme..."
+git clone https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git &>> "$LOG_FILE"
+pushd papirus-icon-theme > /dev/null
 
-  echo " [-] Installing Arc-X-Icons..."
-  sudo mv src/Paper /usr/share/icons/Paper
-  sudo mv src/Arc-OSX-P /usr/share/icons/Arc-X-P
+echo " [-] Installing Papirus icon theme..."
+[[ -d /usr/share/icons/Papirus ]] && sudo rm -rf /usr/share/icons/Papirus
+sudo mv Papirus /usr/share/icons/Papirus
 
-  popd > /dev/null # Arc-X-Icons
-fi
+popd > /dev/null # papirus-icon-theme
 
-# download theme if needed
+echo " [-] Downloading Papirus Remix icon theme..."
+git clone https://gitlab.com/sira313/papirus-remix.git &>> "$LOG_FILE"
+
+echo " [-] Installing Papirus Remix icon theme..."
+[[ -d /usr/share/icons/papirus-remix ]] && sudo rm -rf /usr/share/icons/papirus-remix
+sudo mv papirus-remix /usr/share/icons/papirus-remix
+
+# download theme
 echo " [-] Downloading Qogir theme..."
-git clone https://github.com/vinceliuice/Qogir-theme &>> "$LOG_FILE"
+git clone https://github.com/vinceliuice/Qogir-theme.git &>> "$LOG_FILE"
 pushd Qogir-theme > /dev/null
 
 echo " [-] Customizing and installing Qogir theme..."
@@ -112,7 +116,7 @@ sed -i 's/{ $header_bg: #ffffff; }/{ $header_bg: #e7e8eb; }/g' src/_sass/_colors
 # generate theme
 ./parse-sass.sh &>> "$LOG_FILE"
 
-./Install -c light -m gnome -s &>> "$LOG_FILE"
+./Install -c light -w square &>> "$LOG_FILE"
 popd > /dev/null # Qogir-theme
 
 popd > /dev/null # /tmp/dotfiles-shell
@@ -131,9 +135,9 @@ dconf write /org/gnome/desktop/interface/gtk-theme "'Qogir-gnome-light'"
 
 # change icon theme
 if [ "$useCustomIcons" = false ]; then
-  dconf write /org/gnome/desktop/interface/icon-theme "'Arc-X-P'"
+  dconf write /org/gnome/desktop/interface/icon-theme "'Papirus-remix'"
 else
-  dconf write /org/gnome/desktop/interface/icon-theme "'Custom_arc_icons'"
+  dconf write /org/gnome/desktop/interface/icon-theme "'Custom-icons'"
 fi
 
 # change shell theme
