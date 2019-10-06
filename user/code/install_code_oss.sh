@@ -19,7 +19,7 @@ elif [ -n "$(command -v dnf)" ]; then
     sudo dnf install -y \
         make gcc gcc-c++ glibc-devel git-core python nodejs \
         libgnome-keyring-devel tar libX11-devel \
-        libXScrnSaver libsecret-devel > /dev/null
+        libxkbfile-devel libsecret-devel > /dev/null
     sudo npm i -g yarn
 else
     echo "Not supported package manager! Skipping..."

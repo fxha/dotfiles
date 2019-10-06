@@ -116,7 +116,7 @@ sed -i 's/{ $header_bg: #ffffff; }/{ $header_bg: #e7e8eb; }/g' src/_sass/_colors
 # generate theme
 ./parse-sass.sh &>> "$LOG_FILE"
 
-./Install -c light -w square &>> "$LOG_FILE"
+./install.sh -c light -w square &>> "$LOG_FILE"
 popd > /dev/null # Qogir-theme
 
 popd > /dev/null # /tmp/dotfiles-shell
@@ -131,7 +131,7 @@ elif [[ $enabledExtensions != *"'user-theme@gnome-shell-extensions.gcampax.githu
 fi
 
 # change GTK theme
-dconf write /org/gnome/desktop/interface/gtk-theme "'Qogir-gnome-light'"
+dconf write /org/gnome/desktop/interface/gtk-theme "'Qogir-win-light'"
 
 # change icon theme
 if [ "$useCustomIcons" = false ]; then
