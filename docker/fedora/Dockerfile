@@ -5,6 +5,7 @@ RUN dnf install -y git sudo
 # create a user
 RUN useradd -ms /bin/bash dev
 RUN echo "dev    ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN echo '%sudo  ALL=(ALL)     NOPASSWD: ALL' >> /etc/sudoers
 RUN chown -R dev:dev /home/dev
 
 # add dotfiles and chown
