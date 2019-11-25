@@ -82,6 +82,11 @@ if [ "$installMisc" = true ]; then
     packageList=("${packageList[@]}" "${PACKAGES_MISC[@]}")
 fi
 
+# Build dependencies
+if [ "$installAlacritty" = true ]; then
+    packageList=("${packageList[@]}" "${PACKAGES_BUILD_ALACRITTY[@]}")
+fi
+
 # apply user configuration
 echo " [-] Downloading and installing packages..."
 if [ -z "$packageList" ]; then
@@ -135,15 +140,6 @@ if [ "$installAlacritty" = true ]; then
     echo " [-] Installing alacritty dependencies"
     if [ "$installDevList" = false ]; then
         . "$DOTFILES_DIR/.linux/rust.sh"
-    fi
-    if [ "$isApt" = true ]; then
-	    sudo apt-get install -y \
-            cmake libfreetype6-dev libfontconfig1-dev xclip \
-            &>> "$DOTFILES_LOG_FILE"
-    else
-        sudo dnf install -y \
-            cmake freetype-devel fontconfig-devel xclip \
-            &>> "$DOTFILES_LOG_FILE"
     fi
     . "$DOTFILES_DIR/.linux/alacritty.sh"
 fi

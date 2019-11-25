@@ -79,3 +79,17 @@ PACKAGES_LATEX=(
     # texlive-full # TODO: fix "mtxrun --generate failed."
 # TODO: complete the package list
 )
+
+# # # # # # # # # # # #
+# Build dependencies
+
+PACKAGES_BUILD_ALACRITTY=(
+    cmake
+    pkg-config
+    libfreetype6-dev
+    libfontconfig1-dev
+    libxcb-xfixes0-dev
+    python3
+    xclip
+)
+

@@ -88,3 +88,15 @@ PACKAGES_LATEX=(
     texlive-needspace
     texlive-titling
 )
+
+# # # # # # # # # # # #
+# Build dependencies
+
+PACKAGES_BUILD_ALACRITTY=(
+    cmake
+    freetype-devel
+    fontconfig-devel
+    libxcb-devel
+    xclip
+)
+

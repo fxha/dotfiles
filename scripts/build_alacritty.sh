@@ -13,8 +13,8 @@ git clone https://github.com/jwilm/alacritty.git &>> "$DOTFILES_LOG_FILE"
 
 pushd alacritty > /dev/null
 echo "   This may take a while..."
-cargo build --release &>> "$DOTFILES_LOG_FILE"
-cargo install --force --path . &>> "$DOTFILES_LOG_FILE"
+# cargo build --release &>> "$DOTFILES_LOG_FILE"
+cargo install --force --path alacritty &>> "$DOTFILES_LOG_FILE"
 
 # macOS
 #make app
