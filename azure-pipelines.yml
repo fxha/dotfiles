@@ -1,5 +1,5 @@
 jobs:
-  - job: Fedora_30
+  - job: Fedora_31
     pool:
       vmImage: 'ubuntu-16.04'
 
