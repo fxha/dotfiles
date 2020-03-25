@@ -82,7 +82,7 @@ mkdir -p "$HOME/projects"
 # root dotfiles
 declare -a dotfileLinks=(
     "$DOTFILES_ROOT/.aliases"
-    "$DOTFILES_ROOT/.bash_completion_helper"
+    "$DOTFILES_ROOT/.bash_completion_helper.sh"
     "$DOTFILES_ROOT/.bash_logout"
     "$DOTFILES_ROOT/.bash_profile"
     "$DOTFILES_ROOT/.bash_prompt"
