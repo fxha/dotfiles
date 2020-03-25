@@ -74,6 +74,7 @@ PACKAGES_MISC=(
 PACKAGES_LATEX=(
     pandoc
     pandoc-citeproc
+    texmaker
     texlive
     texlive-xecjk
     texlive-filehook

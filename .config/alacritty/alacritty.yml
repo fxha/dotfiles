@@ -57,6 +57,12 @@ window:
   # Window class (Linux only):
   #class: Alacritty
 
+  # GTK theme variant (Linux only)
+  #
+  # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
+  # Set this to `None` to use the default theme variant.
+  gtk_theme_variant: dark
+
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
@@ -65,12 +71,6 @@ scrolling:
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
   multiplier: 3
-
-  # Scroll to the bottom when new text is written to the terminal.
-  #auto_scroll: false
-
-# Display tabs using this many cells (changes require restart)
-tabspaces: 8
 
 # Font configuration (changes require restart)
 font:
