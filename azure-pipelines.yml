@@ -1,25 +1,27 @@
-jobs:
-  - job: Fedora_31
-    pool:
-      vmImage: 'ubuntu-16.04'
+# Disabled due to https://github.com/docker/compose/issues/6838 issue about 'export' environment variables.
 
-    steps:
-    - script: docker-compose up -d fedora
-      displayName: 'Testing dotfiles...'
-
-  - job: Ubuntu_1804
-    pool:
-      vmImage: 'ubuntu-16.04'
-
-    steps:
-    - script: docker-compose up -d ubuntu
-      displayName: 'Testing dotfiles...'
-
-  - job: macOS
-    pool:
-      vmImage: 'macOS-10.13'
-
-    steps:
-    # TODO: fix sudo: no tty present and no askpass program specified
-    - script: sudo ./install.sh --root --accept-mscorefonts-eula --no-interaction --log-path=/dev/stdout
-      displayName: 'Testing dotfiles...'
+# jobs:
+#   - job: Fedora_31
+#     pool:
+#       vmImage: 'ubuntu-16.04'
+#
+#     steps:
+#     - script: docker-compose up -d fedora
+#       displayName: 'Testing dotfiles...'
+#
+#   - job: Ubuntu_1804
+#     pool:
+#       vmImage: 'ubuntu-16.04'
+#
+#     steps:
+#     - script: docker-compose up -d ubuntu
+#       displayName: 'Testing dotfiles...'
+#
+#   - job: macOS
+#     pool:
+#       vmImage: 'macOS-10.13'
+#
+#     steps:
+#     # TODO: fix sudo: no tty present and no askpass program specified
+#     - script: sudo ./install.sh --root --accept-mscorefonts-eula --no-interaction --log-path=/dev/stdout
+#       displayName: 'Testing dotfiles...'

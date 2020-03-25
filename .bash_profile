@@ -1,36 +1,36 @@
 # .bash_profile
 
-# get aliases
+# Load aliases
 if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
-# prompt
+# Load prompt
 if [ -f ~/.bash_prompt ]; then
     . ~/.bash_prompt
 fi
 
-# get environment variables
+# Get environment variables
 if [ -f ~/.env ]; then
     . ~/.env
 fi
 
-# get functions
+# Get functions
 if [ -f ~/.functions ]; then
     . ~/.functions
 fi
 
-# get secrets
+# Get secrets
 if [ -f ~/.secrets ]; then
     . ~/.secrets
 fi
 
-# get ssh aliases and startup script
+# Get SSH aliases and startup script
 if [ -f ~/.ssh_utils ]; then
     . ~/.ssh_utils
 fi
 
-# load local user configuration
+# Load local user configuration
 if [ -f ~/.bash_profile.local ]; then
     . ~/.bash_profile.local
 fi
@@ -41,7 +41,14 @@ if [[ "$(uname)" == "CYGWIN"* &&
    cd "$ConEmuWorkDir"
 fi
 
-# always start tmux
-#if [ -z "$TMUX" ]; then
+# Alias completion
+# if [ -f ~/.bash_completion_helper.sh ]; then
+#     . ~/.bash_completion_helper.sh
+#
+#     # complete -F _complete_alias g
+# fi
+
+# Always start tmux
+# if [ -z "$TMUX" ]; then
 #    tmux attach -t default || tmux new -s default
-#fi
+# fi
