@@ -39,6 +39,6 @@
       "**/node_modules": true
     },
     "window.titleBarStyle": "custom",
-    "window.zoomLevel": 0,
-    "breadcrumbs.enabled": false
+    "breadcrumbs.enabled": false,
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 100 }"
   }
