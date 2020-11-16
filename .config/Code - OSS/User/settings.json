@@ -1,30 +1,37 @@
 {
-    // editor
+    // Editor
     "editor.fontFamily": "'DejaVu Sans Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontSize": 15,
     "editor.tabSize": 2,
     "editor.detectIndentation": false,
     "editor.minimap.enabled": false,
 
-    // rust
-    "rust-client.channel": "stable",
-
-    // workbench theming
+    // Workbench and window theming
+    "breadcrumbs.enabled": false,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "One Dark Pro",
     "workbench.colorCustomizations":{
       "activityBar.background": "#282c34"
     },
+    "window.titleBarStyle": "custom",
 
-    // vscode settings
+    // VSCode settings
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
     "workbench.statusBar.feedback.visible": false,
+    "workbench.enableExperiments": false,
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "update.showReleaseNotes": false,
+    "update.mode": "start",
 
-    // additional settings
+    // Rust
+    "rust-client.channel": "stable",
+
+    // Additional settings
     "debug.allowBreakpointsEverywhere": true,
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 100 }",
 
-    // search and watcher excludes
+    // Search and watcher excludes
     "search.exclude": {
       "**/.git": true,
       "**/build": true,
@@ -36,9 +43,7 @@
       "**/build": true,
       "**/dist/**": true,
       "**/marktext/dist": true,
-      "**/node_modules": true
-    },
-    "window.titleBarStyle": "custom",
-    "breadcrumbs.enabled": false,
-    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 100 }"
-  }
+      "**/node_modules": true,
+      "**/target": true
+    }
+}
