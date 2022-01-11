@@ -116,8 +116,8 @@ sed -i 's/{ $header_bg: #ffffff; }/{ $header_bg: #e7e8eb; }/g' src/_sass/_colors
 # generate theme
 ./parse-sass.sh &>> "$LOG_FILE"
 
-./install.sh -c light -w square -t standard -l gnome &>> "$LOG_FILE"
-./install.sh -c dark -w square -t standard -l gnome &>> "$LOG_FILE"
+./install.sh -c light -t default -l gnome --tweaks square &>> "$LOG_FILE"
+./install.sh -c dark -t default -l gnome --tweaks square &>> "$LOG_FILE"
 popd > /dev/null # Qogir-theme
 
 popd > /dev/null # /tmp/dotfiles-shell

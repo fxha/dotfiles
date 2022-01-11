@@ -1,42 +1,77 @@
 {
-    // Editor
+    // ---- Editor
     "editor.fontFamily": "'DejaVu Sans Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontSize": 15,
     "editor.tabSize": 2,
-    "editor.detectIndentation": false,
+    "editor.detectIndentation": true,
     "editor.minimap.enabled": false,
+    "[rust]": {
+      "editor.formatOnSave": true,
+      "editor.tabSize": 4
+    },
 
-    // Workbench and window theming
+    // ---- Workbench and window theming
     "breadcrumbs.enabled": false,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "One Dark Pro",
-    "workbench.colorCustomizations":{
-      "activityBar.background": "#282c34"
-    },
+    "workbench.preferredDarkColorTheme": "One Dark Pro",
+    "workbench.editor.untitled.hint": "hidden",
     "window.titleBarStyle": "custom",
+    "window.zoomLevel": 0,
 
-    // VSCode settings
-    "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false,
+    // ---- VSCode settings
+    "telemetry.telemetryLevel": "off",
     "workbench.statusBar.feedback.visible": false,
     "workbench.enableExperiments": false,
     "workbench.settings.enableNaturalLanguageSearch": false,
     "update.showReleaseNotes": false,
     "update.mode": "start",
 
-    // Rust
-    "rust-client.channel": "stable",
+    // ---- GitLens
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.avatars": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.currentLine.pullRequests.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    "gitlens.integrations.enabled": false,
+    "gitlens.liveshare.allowGuestAccess": false,
+    "gitlens.statusBar.pullRequests.enabled": false,
 
-    // Additional settings
-    "debug.allowBreakpointsEverywhere": true,
+    // ---- C/C++
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c11",
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 100 }",
 
-    // Search and watcher excludes
+    // ---- Rust
+    "rust-client.channel": "stable",
+    "rust-analyzer.updates.channel": "stable",
+    "rust-analyzer.updates.askBeforeDownload": true,
+    "rust-analyzer.checkOnSave.enable": true,
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "rust-analyzer.checkOnSave.allTargets": false,
+
+    // ---- Editor Style
+    // Remove mutable underline for Rust
+    "editor.semanticTokenColorCustomizations": {
+      "enabled": true,
+      "rules": {
+        "*.mutable": {
+          "underline": false,
+        }
+      }
+    },
+
+    // ---- Additional settings
+    "debug.allowBreakpointsEverywhere": true,
+
+    // ---- Search and watcher excludes
     "search.exclude": {
       "**/.git": true,
       "**/build": true,
       "**/node_modules": true,
-      "**/marktext/dist": true
+      "**/marktext/dist": true,
+      "/target/**": true
     },
     "files.watcherExclude": {
       "**/.git": true,
@@ -44,6 +79,6 @@
       "**/dist/**": true,
       "**/marktext/dist": true,
       "**/node_modules": true,
-      "**/target": true
+      "/target/**": true
     }
 }
