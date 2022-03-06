@@ -80,5 +80,39 @@
       "**/marktext/dist": true,
       "**/node_modules": true,
       "/target/**": true
-    }
+    },
+
+    // ---- Word highlight
+    "todohighlight.keywords": [{
+      "text": "TODO",
+      "color": "#d19a66",
+      "backgroundColor": "None",
+      "overviewRulerColor": "None",
+      "isWholeLine": false
+      }, {
+        "text": "FIXME",
+        "color": "#d19a66",
+        "backgroundColor": "None",
+        "overviewRulerColor": "None",
+        "isWholeLine": false
+        }, {
+        "text": "NOTE:",
+        "color": "#c678dd",
+        "backgroundColor": "NONE",
+        "overviewRulerColor": "NONE",
+        "isWholeLine": false
+      }, {
+        "text": "NB:",
+        "color": "#c678dd",
+        "backgroundColor": "NONE",
+        "overviewRulerColor": "NONE",
+        "isWholeLine": false
+      },  {
+        "text": "#DEBUG",
+        "color": "#c678dd",
+        "backgroundColor": "NONE",
+        "overviewRulerColor": "NONE",
+        "isWholeLine": false
+      }
+    ]
 }
