@@ -127,6 +127,7 @@ if [ "$(uname)" == "Linux" ]; then
     link_file "$DOTFILES_ROOT/.config/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
     mkdir -p "$HOME/.config/Code - OSS/User"
     link_file "$DOTFILES_ROOT/.config/Code - OSS/User/settings.json" "$HOME/.config/Code - OSS/User/settings.json"
+    link_file "$DOTFILES_ROOT/.config/Code - OSS/User/keybindings.json" "$HOME/.config/Code - OSS/User/keybindings.json"
     mkdir -p "$HOME/.config/keepassxc"
     copy_file "$DOTFILES_ROOT/.config/keepassxc/keepassxc.ini" "$HOME/.config/keepassxc/keepassxc.ini"
 
