@@ -73,8 +73,8 @@ pushd flat-remix-gnome > /dev/null
 # ./generate-color-theme.sh Blue '#2777ff' '#ffffff' &>> "$LOG_FILE"
 
 echo " [-] Installing Flat-Remix-Gnome shell theme..."
-[[ -d /usr/share/icons/Flat-Remix-Blue-Light-fullPanel ]] && sudo rm -rf /usr/share/icons/Flat-Remix-Blue-Light-fullPanel
-sudo mv themes/Flat-Remix-Blue-Light-fullPanel /usr/share/icons/Flat-Remix-Blue-Light-fullPanel
+[[ -d /usr/share/themes/Flat-Remix-Blue-Light-fullPanel ]] && sudo rm -rf /usr/share/themes/Flat-Remix-Blue-Light-fullPanel
+sudo mv themes/Flat-Remix-Blue-Light-fullPanel /usr/share/themes/Flat-Remix-Blue-Light-fullPanel
 
 popd > /dev/null # Flat-Remix-Gnome
 
@@ -114,8 +114,8 @@ sed -i 's/{ $header_bg: #ffffff; }/{ $header_bg: #e7e8eb; }/g' src/_sass/_colors
 # Build theme
 ./parse-sass.sh &>> "$LOG_FILE"
 
-./install.sh -c light -t default -l gnome --tweaks square &>> "$LOG_FILE"
-./install.sh -c dark -t default -l gnome --tweaks square &>> "$LOG_FILE"
+./install.sh -c light -t default -i gnome --tweaks square --libadwaita &>> "$LOG_FILE"
+./install.sh -c dark -t default -i gnome --tweaks square --libadwaita &>> "$LOG_FILE"
 popd > /dev/null # Qogir-theme
 
 popd > /dev/null # /tmp/dotfiles-shell
