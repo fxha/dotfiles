@@ -9,6 +9,7 @@
       "editor.formatOnSave": true,
       "editor.tabSize": 4
     },
+    "diffEditor.ignoreTrimWhitespace": false,
 
     // ---- Workbench and window theming
     "breadcrumbs.enabled": false,
@@ -16,8 +17,9 @@
     "workbench.colorTheme": "One Dark Pro",
     "workbench.preferredDarkColorTheme": "One Dark Pro",
     "workbench.editor.untitled.hint": "hidden",
+    "workbench.editor.empty.hint": "hidden",
     "window.titleBarStyle": "custom",
-    "window.zoomLevel": 0,
+    "window.commandCenter": false,
 
     // ---- VSCode settings
     "telemetry.telemetryLevel": "off",
