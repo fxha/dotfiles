@@ -11,11 +11,15 @@
     br = branch
     ci = commit
     co = checkout
+    cb = checkout -b
     df = diff
     st = status
+    cpi = cherry-pick
+    p = push
 
     aa = add -A
     cin = commit --no-gpg-sign
+    cam = commit --amend --no-edit
 
     # view abbreviated SHA, description, and history graph of the latest x commits.
     l = "!f(){ git log --pretty=oneline -n ${1:-60} --graph --abbrev-commit; };f"
@@ -54,6 +58,9 @@
 
 [pull]
     rebase = true
+
+[push]
+    autoSetupRemote = true
 
 [color]
     ui = auto
