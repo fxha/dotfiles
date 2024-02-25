@@ -124,7 +124,7 @@ echo " [-] Linking custom files and directories..."
 if [ "$(uname)" == "Linux" ]; then
     # custom install directories:
     mkdir -p "$HOME/.config/alacritty"
-    link_file "$DOTFILES_ROOT/.config/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+    link_file "$DOTFILES_ROOT/.config/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
     mkdir -p "$HOME/.config/Code - OSS/User"
     link_file "$DOTFILES_ROOT/.config/Code - OSS/User/settings.json" "$HOME/.config/Code - OSS/User/settings.json"
     link_file "$DOTFILES_ROOT/.config/Code - OSS/User/keybindings.json" "$HOME/.config/Code - OSS/User/keybindings.json"
